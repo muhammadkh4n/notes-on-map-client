@@ -8,20 +8,27 @@ import {
 } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 
+import Auth from '../../components/auth/Auth';
+
 import styles from './styles';
+import baseStyles from '../../styles';
 
 const Header = ({ classes }) => {
   return (
     <header className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <nav className={classes.grow}>
+        <Toolbar className={classes.spaceBetween}>
+          <nav>
             <Link to="/" className={classes.link}>
               <Button
                 color="inherit">Home</Button>
             </Link>
+            <Link to="/notes" className={classes.link}>
+              <Button
+                color="inherit">Notes</Button>
+            </Link>
           </nav>
-          <Button color="inherit">Login</Button>
+          <Auth />
         </Toolbar>
       </AppBar>
     </header>
@@ -32,5 +39,5 @@ Header.propTypes = {
   classes: Proptypes.object.isRequired
 };
 
-const composeStyles = withStyles(styles);
+const composeStyles = withStyles(Object.assign(baseStyles, styles));
 export default composeStyles(withRouter(Header));

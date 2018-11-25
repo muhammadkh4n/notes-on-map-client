@@ -16,7 +16,7 @@ class Home extends Component {
       <div className={root}>
         <h1>Welcome to Notes on the Map</h1>
         <Link to="/notes">
-          <Button color="primary" variant="raised" className={createBtn}>
+          <Button color="primary" variant="contained" className={createBtn}>
             Create a Note
           </Button>
         </Link>
