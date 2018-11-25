@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  withStyles,
+  Button
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+import styles from './styles';
 
 class Home extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   render() {
+    const { classes: { root, createBtn } } = this.props;
     return (
-      <div>
-        test
+      <div className={root}>
+        <h1>Welcome to Notes on the Map</h1>
+        <Link to="/notes">
+          <Button color="primary" variant="raised" className={createBtn}>
+            Create a Note
+          </Button>
+        </Link>
       </div>
     );
   }
 }
 
 Home.propTypes = {
-
+  classes: PropTypes.object.isRequired
 };
 
-export default Home;
+export default withStyles(styles)(Home);
