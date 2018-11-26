@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   withStyles,
   Button,
@@ -34,8 +34,12 @@ class Auth extends Component {
     return null;
   }
 
-  formSubmit = (formState) => () => {
+  loginUser = (formState) => () => {
     this.props.login(formState.values);
+  }
+
+  registerUser = (formState) => () => {
+    this.props.register(formState.values);
   }
 
   render() {
@@ -100,20 +104,41 @@ class Auth extends Component {
               }
             </CardContent>
             <CardActions className={classes.actions}>
-              <Button
-                disabled={formState.pristine || formState.invalid}
-                onClick={this.formSubmit(formState)}
-                size="small"
-                color="primary">
-                { formType }
-              </Button>
-              <Link
-                className={classes.link}
-                to={formType === 'Login' ? '/signup' : '/login'}>
-                <Button size="small" color="primary">
-                  { formType === 'Login' ? 'Sign Up' : 'Login' }
-                </Button>
-              </Link>
+              {formType === 'Login' ?
+                <Fragment>
+                  <Button
+                    disabled={formState.pristine || formState.invalid}
+                    onClick={this.loginUser(formState)}
+                    size="small"
+                    color="primary">
+                    { formType }
+                  </Button>
+                  <Link
+                    className={classes.link}
+                    to={'/signup'}>
+                    <Button size="small" color="primary">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </Fragment>
+              :
+                <Fragment>
+                  <Button
+                    disabled={formState.pristine || formState.invalid}
+                    onClick={this.registerUser(formState)}
+                    size="small"
+                    color="primary">
+                    { formType }
+                  </Button>
+                  <Link
+                    className={classes.link}
+                    to={'/login'}>
+                    <Button size="small" color="primary">
+                      Login
+                    </Button>
+                  </Link>
+                </Fragment>
+              }
             </CardActions>
           </Card>
         )}
@@ -131,7 +156,7 @@ const mapStateToProps = ({ auth }) => auth;
 
 const mapDispatchToProps = dispatch => ({
   login: (data) => dispatch(login(data)),
-  signup: (data) => dispatch(signup(data)),
+  register: (data) => dispatch(signup(data)),
   setCurrentUser: (user) => dispatch(setCurrentUser(user))
 });
 
