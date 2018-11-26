@@ -11,13 +11,17 @@ import styles from './styles';
 import baseStyles from '../../styles';
 
 const Auth = props => {
-  const { classes, isAuthenticated, currentUser } = props;
+  const { classes, isAuthenticated, currentUser, logout } = props;
   return (
     <div className={classes.root} id="auth">
       {isAuthenticated ?
         <Fragment>
-          <Typography>{ currentUser.username }</Typography>
-          <Button color="inherit">Logout</Button>
+          <Typography variant="h6" color="inherit">
+            { currentUser.username }
+          </Typography>
+          <Button
+            onClick={logout}
+            color="inherit">Logout</Button>
         </Fragment>
         :
         <Link to="/login" className={classes.link}>

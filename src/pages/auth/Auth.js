@@ -27,6 +27,13 @@ class Auth extends Component {
 
   state = {};
 
+  static getDerivedStateFromProps = (props) => {
+    if (localStorage.token && props.data) {
+      props.history.push('/');
+    }
+    return null;
+  }
+
   formSubmit = (formState) => () => {
     this.props.login(formState.values);
   }
@@ -65,7 +72,10 @@ class Auth extends Component {
                 field="password"
                 label="Password"
                 type="password"
-                validate={combineValidators([validateRequired, validateEqualPasswords])}
+                validate={formType === 'Sign Up' ?
+                  combineValidators([validateRequired, validateEqualPasswords]) :
+                  validateRequired
+                }
                 validateOnBlur
                 notify={formType === 'Sign Up' && ['confirmPassword']}
               />
@@ -81,7 +91,11 @@ class Auth extends Component {
               }
               {this.props.error &&
                 <Typography color="error">
-                  Oops! Something went wrong
+                  {this.props.error.response.data ?
+                    this.props.error.response.data.message
+                  :
+                    'Oops! Something went wrong'
+                  }
                 </Typography>
               }
             </CardContent>

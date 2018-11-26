@@ -1,2 +1,5 @@
-export default theme => ({
-})
+export default {
+  root: {
+    display: 'flex'
+  }
+}

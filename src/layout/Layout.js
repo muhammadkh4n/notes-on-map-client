@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Header from './header/Header';
-import { setCurrentUser } from '../actions/auth';
+import { setCurrentUser, logout } from '../actions/auth';
 
 class Layout extends Component {
 
   state = {};
 
   componentDidMount() {
-    
-  }
-
-  static getDerivedStateFromProps(props) {
-    if (!props.isAuthenticated && localStorage.token) {
-      props.setCurrentUser({
+    if (!this.props.isAuthenticated && localStorage.token) {
+      this.props.setCurrentUser({
         userId: localStorage.userId,
         username: localStorage.username,
         token: localStorage.token
       });
-    } else if (!props.isAuthenticated && !props.formType) {
+    }
+  }
+
+  static getDerivedStateFromProps(props) {
+    if (!localStorage.token && !props.isAuthenticated && !props.formType) {
       props.history.push('/login');
-    } else if (props.isAuthenticated) {
+    } else if (props.isAuthenticated && props.match.path !== '/') {
       props.history.push('/')
     }
     return null;
@@ -40,6 +40,7 @@ class Layout extends Component {
 export default connect(
   ({ auth }) => auth,
   (dispatch) => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    logout: () => dispatch(logout())
   })
 )(withRouter(Layout));
