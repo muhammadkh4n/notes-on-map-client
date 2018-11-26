@@ -22,7 +22,9 @@ class Layout extends Component {
   static getDerivedStateFromProps(props) {
     if (!localStorage.token && !props.isAuthenticated && !props.formType) {
       props.history.push('/login');
-    } else if (props.isAuthenticated && props.match.path !== '/') {
+    } else if (props.isAuthenticated &&
+              (props.match.path === '/login' ||
+                props.match.path === '/signup')) {
       props.history.push('/')
     }
     return null;

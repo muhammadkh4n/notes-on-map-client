@@ -5,6 +5,7 @@ import Layout from './layout/Layout';
 
 import Home from './pages/home/Home';
 import Auth from './pages/auth/Auth';
+import Notes from './pages/notes/Notes';
 
 const routeList = [
   {
@@ -30,6 +31,11 @@ const routeList = [
     customProps: {
       formType: 'Sign Up'
     }
+  },
+  {
+    component: Notes,
+    path: '/notes',
+    layout: Layout
   }
 ];
 
