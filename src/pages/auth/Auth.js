@@ -27,11 +27,6 @@ class Auth extends Component {
 
   state = {};
 
-  static getDerivedStateFromProps({ error }) {
-    console.log(error && error.response);
-    return null;
-  }
-
   formSubmit = (formState) => () => {
     this.props.login(formState.values);
   }
@@ -118,11 +113,7 @@ Auth.propTypes = {
   formType: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ auth }) => ({
-  data: auth.data,
-  error: auth.error,
-  currentUser: auth.currentUser
-});
+const mapStateToProps = ({ auth }) => auth;
 
 const mapDispatchToProps = dispatch => ({
   login: (data) => dispatch(login(data)),

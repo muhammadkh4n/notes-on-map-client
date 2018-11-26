@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
   withStyles,
-  Button
+  Button,
+  Typography
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -10,12 +11,19 @@ import styles from './styles';
 import baseStyles from '../../styles';
 
 const Auth = props => {
-  const { classes } = props;
+  const { classes, isAuthenticated, currentUser } = props;
   return (
     <div className={classes.root} id="auth">
-      <Link to="/login" className={classes.link}>
-        <Button color="inherit">Login</Button>
-      </Link>
+      {isAuthenticated ?
+        <Fragment>
+          <Typography>{ currentUser.username }</Typography>
+          <Button color="inherit">Logout</Button>
+        </Fragment>
+        :
+        <Link to="/login" className={classes.link}>
+          <Button color="inherit">Login</Button>
+        </Link>
+      }
     </div>
   );
 };
