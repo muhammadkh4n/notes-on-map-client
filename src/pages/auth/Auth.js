@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 
 import TextField from '../../components/text-field/TextField';
 import { validateRequired, validateEmail, validateEqualPasswords, combineValidators } from '../../helpers/validators';
-import { login } from '../../actions/auth';
+import { login, signup, setCurrentUser } from '../../actions/auth';
 
 import styles from './styles';
 import baseStyles from '../../styles';
@@ -49,7 +49,7 @@ class Auth extends Component {
                   alt="Auth Background"
                   className={classes.media}
                   height="140"
-                  image="/img/auth-bg.jpg"
+                  image={`/img/${formType}-bg.jpg`}
                 />
                 <Typography
                   className={classes.title}
@@ -120,11 +120,14 @@ Auth.propTypes = {
 
 const mapStateToProps = ({ auth }) => ({
   data: auth.data,
-  error: auth.error
+  error: auth.error,
+  currentUser: auth.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (data) => dispatch(login(data))
+  login: (data) => dispatch(login(data)),
+  signup: (data) => dispatch(signup(data)),
+  setCurrentUser: (user) => dispatch(setCurrentUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

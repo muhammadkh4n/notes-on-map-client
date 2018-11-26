@@ -1,4 +1,4 @@
-
+import { AUTH_TYPES } from '../actions/auth';
 const initialState = {
   isAuthenticated: false,
   error: null,
@@ -9,8 +9,10 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   const { type, payload, error } = action;
   switch (type) {
-    case 'LOGIN':
+    case AUTH_TYPES.AUTH:
       return { ...state, error: error && payload, data: !error && payload };
+    case AUTH_TYPES.SET_CURRENT_USER:
+      return { ...state, currentUser: payload };
     default:
       return { ...state };
   }
