@@ -7,16 +7,17 @@ import {
 import { Link } from 'react-router-dom';
 
 import styles from './styles';
+import baseStyles from '../../styles';
 
 class Home extends Component {
 
   render() {
-    const { classes: { root, createBtn } } = this.props;
+    const { classes } = this.props;
     return (
-      <div className={root}>
+      <div className={classes.root}>
         <h1>Welcome to Notes on the Map</h1>
-        <Link to="/notes">
-          <Button color="primary" variant="contained" className={createBtn}>
+        <Link to="/notes" className={classes.link}>
+          <Button color="primary" variant="contained" className={classes.createBtn}>
             Create a Note
           </Button>
         </Link>
@@ -29,4 +30,4 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Home);
+export default withStyles({ ...baseStyles, ...styles })(Home);

@@ -1,6 +1,6 @@
 import { colors } from '@material-ui/core';
 
-export default theme => ({
+export default {
   root: {
     backgroundColor: colors.grey['900'],
     height: 'calc(100vh - 64px)',
@@ -16,4 +16,4 @@ export default theme => ({
     margin: '10px',
     padding: '20px 30px'
   }
-});
+};

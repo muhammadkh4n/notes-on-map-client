@@ -2,9 +2,8 @@ const initialState = {
   notes: [],
 };
 
-const NotesReducer = (action = {}, state = initialState) => {
-  const { type } = action;
-  switch (type) {
+const NotesReducer = (state = initialState, action) => {
+  switch (action.type) {
     default:
       return { ...state };
   }
