@@ -14,9 +14,10 @@ import {
 } from 'informed';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import TextField from '../../components/text-field/TextField';
-import { validateRequired, validateEmail, combineValidators } from '../../helpers/validators';
+import { validateRequired, validateEmail, validateEqualPasswords, combineValidators } from '../../helpers/validators';
 import { login } from '../../actions/auth';
 
 import styles from './styles';
@@ -69,9 +70,20 @@ class Auth extends Component {
                 field="password"
                 label="Password"
                 type="password"
-                validate={validateRequired}
+                validate={combineValidators([validateRequired, validateEqualPasswords])}
                 validateOnBlur
+                notify={formType === 'Sign Up' && ['confirmPassword']}
               />
+              {formType === 'Sign Up' &&
+                <TextField
+                  field="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  validate={combineValidators([validateRequired, validateEqualPasswords])}
+                  validateOnBlur
+                  notify={['password']}
+                />
+              }
               {this.props.error &&
                 <Typography color="error">
                   Oops! Something went wrong
@@ -86,9 +98,13 @@ class Auth extends Component {
                 color="primary">
                 { formType }
               </Button>
-              <Button size="small" color="primary">
-                { formType === 'Login' ? 'Sign Up' : formType }
-              </Button>
+              <Link
+                className={classes.link}
+                to={formType === 'Login' ? '/signup' : '/login'}>
+                <Button size="small" color="primary">
+                  { formType === 'Login' ? 'Sign Up' : 'Login' }
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         )}

@@ -7,9 +7,13 @@ export const validateEmail = (value) => {
   return re.test(String(value).toLowerCase()) ? null : 'field is invalid';
 }
 
-export const combineValidators = validations => value => {
+export const validateEqualPasswords = (value, values) => {
+  return values.password !== values.confirmPassword ? 'field must match' : null;
+};
+
+export const combineValidators = validations => (value, values) => {
   for (const validate of validations) {
-    if (validate(value)) return validate(value);
+    if (validate(value, values)) return validate(value, values);
   }
   return null;
 }

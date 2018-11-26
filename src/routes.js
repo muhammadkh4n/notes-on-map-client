@@ -22,6 +22,14 @@ const routeList = [
     customProps: {
       formType: 'Login'
     }
+  },
+  {
+    component: Auth,
+    path: '/signup',
+    layout: Layout,
+    customProps: {
+      formType: 'Sign Up'
+    }
   }
 ];
 
